@@ -19,14 +19,14 @@ interface ParserInterface
      *
      * @return void
      */
-    public function forward(): void;
+    public function forward(): self;
 
     /**
      * Moves the parser back to the previously read line in the GEDCOM file.
      *
      * @return void
      */
-    public function back(): void;
+    public function back(): self;
 
     /**
      * Checks if the end of the GEDCOM file has been reached.
