@@ -265,7 +265,7 @@ class Head extends \Gedcom\Record
      *
      * @return Head
      */
-    public function setDest($dest = '')
+    public function setDest(string $dest = ''): self
     {
         $this->dest = $dest;
 
@@ -275,7 +275,7 @@ class Head extends \Gedcom\Record
     /**
      * @return string
      */
-    public function getDest()
+    public function getDest(): string 
     {
         return $this->dest;
     }

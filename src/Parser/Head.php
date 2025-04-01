@@ -20,7 +20,7 @@ class Head extends \Gedcom\Parser\Component
     /**
      * @return \Gedcom\Record\Head
      */
-    public static function parse(\Gedcom\Parser $parser)
+    public static function parse(\Gedcom\Parser $parser): mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];

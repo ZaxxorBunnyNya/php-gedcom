@@ -17,7 +17,7 @@ namespace Gedcom\Parser;
 
 class Indi extends \Gedcom\Parser\Component
 {
-    public static function parse(\Gedcom\Parser $parser)
+    public static function parse(\Gedcom\Parser $parser):mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];
@@ -62,7 +62,7 @@ class Indi extends \Gedcom\Parser\Component
                     $indi->addAlia($parser->normalizeIdentifier($record[2]));
                     break;
                 case 'SEX':
-                    $indi->setSex(isset($record[2]) ? trim((string) $record[2]) : '');
+                    $indi->setSex(trim(isset($record[2]) ? (string) $record[2] : 'M'));
                     break;
                 case 'RIN':
                     $indi->setRin(trim((string) $record[2]));

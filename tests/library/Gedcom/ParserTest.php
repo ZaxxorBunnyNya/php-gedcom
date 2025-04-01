@@ -18,6 +18,7 @@ namespace GedcomTest;
 use Gedcom\Parser;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
+use Gedcom\Gedcom;
 
 /**
  * Class ParserTest.

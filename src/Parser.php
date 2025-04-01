@@ -31,7 +31,7 @@ protected $_file;
      *
      * @param Gedcom|null $gedcom An optional Gedcom object to use.
      */
-    public function __construct(Gedcom $gedcom = null)
+    public function __construct(Gedcom|null $gedcom = null)
     {
         $this->_gedcom = is_null($gedcom) ? new Gedcom() : $gedcom;
     }
@@ -314,13 +314,14 @@ protected $_file;
      * @param string $fileName The path to the GEDCOM file to parse.
      * @return Gedcom|null The Gedcom object populated with data from the file, or null on failure.
      */
-    public function parse($fileName): Gedcom|null
+    public function parse($fileName): ?Gedcom
     {
         $this->_file = fopen($fileName, 'r'); //explode("\n", mb_convert_encoding($contents, 'UTF-8'));
 
         if (!$this->_file) {
             error_log("Failed to open file: ". $fileName);
-            return null;
+            
+            return $this->getGedcom();
         }
 
         $this->forward();

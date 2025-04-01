@@ -17,7 +17,7 @@ namespace Gedcom\Parser\Head;
 
 class Char extends \Gedcom\Parser\Component
 {
-    public static function parse(\Gedcom\Parser $parser)
+    public static function parse(\Gedcom\Parser $parser): mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];
@@ -44,7 +44,7 @@ class Char extends \Gedcom\Parser\Component
 
             match ($recordType) {
                 'VERS' => $char->setVers(trim((string) $record[2])),
-                default => $parser->logUnhandledRecord(self::class.' @ '.__LINE__),
+                default => $parser->logUnhandledRecord(self::class . ' @ ' . __LINE__),
             };
 
             $parser->forward();

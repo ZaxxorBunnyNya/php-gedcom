@@ -17,7 +17,7 @@ namespace Gedcom\Parser\Head;
 
 class Sour extends \Gedcom\Parser\Component
 {
-    public static function parse(\Gedcom\Parser $parser)
+    public static function parse(\Gedcom\Parser $parser): mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];
@@ -58,7 +58,7 @@ class Sour extends \Gedcom\Parser\Component
                     $source->setData($data);
                     break;
                 default:
-                    $parser->logUnhandledRecord(self::class.' @ '.__LINE__);
+                    $parser->logUnhandledRecord(self::class . ' @ ' . __LINE__);
             }
 
             $parser->forward();

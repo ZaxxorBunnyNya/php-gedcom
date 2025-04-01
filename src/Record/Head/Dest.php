@@ -5,13 +5,27 @@ namespace Gedcom\Record\Head;
 class Dest extends \Gedcom\Record
 {
     protected $_dest;
-
-    public function setDest($dest)
+    
+    /**
+     * Method setDest
+     *
+     * @param $dest $dest [explicite description]
+     *
+     * @return self
+     */
+    public function setDest($dest):self
     {
         $this->_dest = $dest;
-    }
 
-    public function getDest()
+        return $this;
+    }
+    
+    /**
+     * Method getDest
+     *
+     * @return string
+     */
+    public function getDest():string 
     {
         return $this->_dest;
     }

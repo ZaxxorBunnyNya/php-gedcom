@@ -4,7 +4,7 @@ namespace Gedcom\Parser\Head;
 
 class Dest extends \Gedcom\Parser\Component
 {
-    public static function parse(\Gedcom\Parser $parser)
+    public static function parse(\Gedcom\Parser $parser): mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];
@@ -26,12 +26,12 @@ class Dest extends \Gedcom\Parser\Component
             switch ($recordType) {
                 // Add cases for DEST sub-tags here if needed
                 default:
-                    $parser->logUnhandledRecord(self::class.' @ '.__LINE__);
+                    $parser->logUnhandledRecord(self::class . ' @ ' . __LINE__);
             }
 
             $parser->forward();
         }
 
-        return $dest;
+        return $dest->getDest();
     }
 }
