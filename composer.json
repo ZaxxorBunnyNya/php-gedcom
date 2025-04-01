@@ -1,12 +1,12 @@
 {
-    "name": "liberu-genealogy/php-gedcom",
-    "description": "A GEDCOM file parser (read + write) for PHP 8.4+",
+    "name": "necorupt/php-gedcom",
+    "description": "A GEDCOM file parser (read + write) for PHP 8.2+",
     "type": "library",
     "keywords": ["gedcom", "parser", "genealogy"],
     "homepage": "http://github.com/familytree365/php-gedcom",
     "license": "MIT",
     "require": {
-        "php": ">=8.4",
+        "php": ">=8.2",
         "ext-mbstring": "*"
     },
     "require-dev": {
