@@ -91,6 +91,13 @@ class Gedcom
     protected $subm = [];
 
     /**
+     * Stores main card
+     *
+     * @var \Gedcom\Record\Indi|null
+     */
+    protected \Gedcom\Record\Indi|null $mainIndi = null;
+
+    /**
      * Retrieves the header record of the GEDCOM file.
      */
     public function setHead(\Gedcom\Record\Head $head)
@@ -253,5 +260,39 @@ class Gedcom
     public function getObje()
     {
         return $this->obje;
+    }
+    
+    /**
+     * Set main indi
+     *
+     * @param \Gedcom\Record\Indi $indi
+     *
+     * @return self
+     */
+    public function setMainIndi(\Gedcom\Record\Indi $indi): self
+    {
+        $this->mainIndi = $indi;
+
+        return $this;
+    }
+
+    /**
+     * gets main Indi
+     *
+     * @return Gedcom\Record\Indi
+     */
+    public function getMainIndi(): \Gedcom\Record\Indi
+    {
+        return $this->mainIndi;
+    }
+
+    /**
+     * ges is file has main indi
+     *
+     * @return bool
+     */
+    public function isHasMainIndi(): bool
+    {
+        return $this->mainIndi !== null;
     }
 }

@@ -7,7 +7,7 @@
 
 ## Requirements
 
-* php-gedcom 3.0+ requires PHP 8.2 (or later).
+* requires PHP 8.2 (or later).
 
 ## Installation
 
@@ -19,7 +19,7 @@ To install php-gedcom in your project using composer, simply add the following r
 
     {
         "require": {
-            "liberu-genealogy/php-gedcom": "2.0.*"
+            "necorupt/php-gedcom": "3.0.*"
         }
     }
 

@@ -17,7 +17,7 @@ namespace Gedcom\Parser;
 
 class Indi extends \Gedcom\Parser\Component
 {
-    public static function parse(\Gedcom\Parser $parser):mixed
+    public static function parse(\Gedcom\Parser $parser): mixed
     {
         $record = $parser->getCurrentLineRecord();
         $depth = (int) $record[0];
@@ -29,6 +29,7 @@ class Indi extends \Gedcom\Parser\Component
             return null;
         }
 
+        $needRegisterMainIndi = false;
         $indi = new \Gedcom\Record\Indi();
         $indi->setId($identifier);
 
@@ -44,10 +45,6 @@ class Indi extends \Gedcom\Parser\Component
             if ($currentDepth <= $depth) {
                 $parser->back();
                 break;
-            }
-
-            if ($recordType == 'BURI') {
-                $a = '';
             }
 
             switch ($recordType) {
@@ -172,7 +169,6 @@ class Indi extends \Gedcom\Parser\Component
                 case 'OCCU':
                 case 'PROP':
                 case 'RELI':
-                case 'RESI':
                 case 'SSN':
                 case 'TITL':
                     $className = ucfirst(strtolower($recordType));
@@ -181,11 +177,18 @@ class Indi extends \Gedcom\Parser\Component
                     $att = $class::parse($parser);
                     $indi->addAttr($att);
                     break;
+                case 'RESI':
+                    $needRegisterMainIndi = true;
+                    break;
                 default:
                     $parser->logUnhandledRecord(self::class . ' @ ' . __LINE__);
             }
 
             $parser->forward();
+        }
+
+        if($needRegisterMainIndi === true){
+            $parser->getGedcom()->setMainIndi($indi);
         }
 
         return $indi;
