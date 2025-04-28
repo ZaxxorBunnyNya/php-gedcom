@@ -8,7 +8,7 @@ use Gedcom\Parser\Interfaces\ParserInterface;
 
 class Parser implements ParserInterface
 {
-protected $_file;
+    protected $_file;
 
     protected $_gedcom;
 
@@ -23,6 +23,8 @@ protected $_file;
     protected $_linePieces = 0;
 
     protected $_returnedLine = '';
+
+    protected $_lines = array();
 
     /**
      * Constructs a Parser instance.
@@ -54,7 +56,7 @@ protected $_file;
             $this->_line = $this->_returnedLine;
             $this->_returnedLine = '';
         } else {
-            $this->_line = fgets($this->_file);
+            $this->_line = $this->_lines[$this->_linesParsed];
             $this->_lineRecord = null;
             $this->_linesParsed++;
         }
@@ -106,7 +108,7 @@ protected $_file;
      *
      * @return Gedcom The Gedcom object being parsed.
      */
-    public function getGedcom()
+    public function getGedcom(): Gedcom|null
     {
         return $this->_gedcom;
     }
@@ -118,6 +120,10 @@ protected $_file;
      */
     public function eof(): bool
     {
+        if($this->_file === null){
+            return false;
+        }
+
         return feof($this->_file);
     }
 
@@ -316,13 +322,22 @@ protected $_file;
      */
     public function parse($fileName): ?Gedcom
     {
-        $this->_file = fopen($fileName, 'r'); //explode("\n", mb_convert_encoding($contents, 'UTF-8'));
+        $this->_file = fopen($fileName, 'r');
 
         if (!$this->_file) {
-            error_log("Failed to open file: ". $fileName);
-            
+            error_log("Failed to open file: " . $fileName);
+
             return $this->getGedcom();
         }
+
+        $fileData =  file_get_contents($fileName);
+
+        return $this->parseString($fileData);
+    }
+
+    public function parseString(string $string): ?Gedcom
+    {
+        $this->_lines = $this->splitString($string);
 
         $this->forward();
 
@@ -376,5 +391,12 @@ protected $_file;
         }
 
         return $this->getGedcom();
+    }
+
+    private function splitString(string $string): array
+    {
+        $newString = mb_convert_encoding($string, 'UTF-8');
+
+        return explode(PHP_EOL, $newString);
     }
 }

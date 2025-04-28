@@ -31,7 +31,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_event_no_type.ged');
 
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $events = $fam['F1']->getAllEven();
         $this->assertCount(1, $events);
@@ -50,7 +50,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_event_with_type.ged');
 
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $events = $fam['F1']->getAllEven();
         $this->assertCount(1, $events);
@@ -68,7 +68,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     public function testMultipleEventsOfTheSameTypeAreKept()
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_multiple_events.ged');
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $events = $fam['F1']->getAllEven();
         $this->assertCount(2, $events['MARR']);
@@ -90,7 +90,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_event_with_type.ged');
 
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $event = $fam['F1']->getEven('MARR');
         $this->assertInstanceOf(\Gedcom\Record\Fam\Even::class, $event);
@@ -105,7 +105,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_multiple_events.ged');
 
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $events = $fam['F1']->getEven('MARR');
         $this->assertCount(2, $events);
@@ -126,7 +126,7 @@ class FamParserTest extends \PHPUnit\Framework\TestCase
     {
         $this->gedcom = $this->parser->parse(\TEST_DIR . '/stresstestfiles/family/family_with_extension_tag.ged');
 
-        $fam = $this->gedcom->getFam('F1');
+        $fam = $this->gedcom->getFam();
 
         $extensionTag = $fam['F1']->getExtensionTag('NAME');
         $this->assertEquals('A random family', $extensionTag);
