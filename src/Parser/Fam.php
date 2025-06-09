@@ -127,7 +127,7 @@ class Fam extends \Gedcom\Parser\Component
 
                 default:
                     if (strpos($recordType, '_') === 0) {
-                        $fam->addExtensionTag($recordType, $record[2]);
+                        $fam->addExtensionTag($recordType, isset($record[2]) ? $record[2] : '');
                     }
 
                     $parser->logUnhandledRecord(self::class . ' @ ' . __LINE__);
