@@ -48,23 +48,23 @@ class Repo extends \Gedcom\Parser\Component
 
             switch ($recordType) {
                 case 'NAME':
-                    $repo->setName(trim((string) $record[2]));
+                    $repo->setName(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'ADDR':
                     $addr = \Gedcom\Parser\Addr::parse($parser);
                     $repo->setAddr($addr);
                     break;
                 case 'PHON':
-                    $repo->addPhon(trim((string) $record[2]));
+                    $repo->addPhon(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'EMAIL':
-                    $repo->addEmail(trim((string) $record[2]));
+                    $repo->addEmail(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'FAX':
-                    $repo->addFax(trim((string) $record[2]));
+                    $repo->addFax(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'WWW':
-                    $repo->addWww(trim((string) $record[2]));
+                    $repo->addWww(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'NOTE':
                     if ($note = \Gedcom\Parser\NoteRef::parse($parser)) {
@@ -76,7 +76,7 @@ class Repo extends \Gedcom\Parser\Component
                     $repo->addRefn($refn);
                     break;
                 case 'RIN':
-                    $repo->setRin(trim((string) $record[2]));
+                    $repo->setRin(isset($record[2]) ? trim((string)$record[2]) : '');
                     break;
                 case 'CHAN':
                     $chan = \Gedcom\Parser\Chan::parse($parser);
