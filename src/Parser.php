@@ -313,6 +313,78 @@ class Parser implements ParserInterface
     }
 
     /**
+     * getFormatTypeBySourceName
+     *
+     * @param  mixed $sourceName
+     * @return Gedcom\Enums\SpeceficFormats
+     */
+    public function getFormatTypeBySourceName(string $sourceName): \Gedcom\Enums\SpeceficFormats
+    {
+        if($sourceName === "FamyTale"){
+            return \Gedcom\Enums\SpeceficFormats::Famytale;
+        }
+
+        return \Gedcom\Enums\SpeceficFormats::Unkown;
+    }
+
+
+    /**
+     * setFirstCard
+     *
+     * @return self
+     */
+    public function setFirstCard(): self
+    {
+        $gedcom = $this->getGedcom();
+        $format = $gedcom->getSpecificFormat();
+
+        if ($format === null || $format === \Gedcom\Enums\SpeceficFormats::Unkown) {
+            return $this;
+        }
+
+        if ($format === \Gedcom\Enums\SpeceficFormats::Famytale) {
+            $indi = $gedcom->getIndi();
+
+            $gedcom->setMainIndi($indi[array_key_first($indi)]);
+            $this->_gedcom = $gedcom;
+
+            return $this;
+        }
+
+        return $this;
+    }
+
+    public function detectSpecificFileFormat(): self
+    {
+        $gedcom = $this->getGedcom();
+
+        if ($gedcom === null) {
+            error_log("Failed to detect format");
+
+            return $this;
+        }
+
+        $source = $gedcom
+            ->getHead()
+            ->getSour()
+            ->getName();
+
+        if ($source === null) {
+            $gedcom->setSpecificFormat(\Gedcom\Enums\SpeceficFormats::Unkown);
+
+            return $this;
+        }
+
+        $gedcom->setSpecificFormat(
+            $this->getFormatTypeBySourceName((string)$source)
+        );
+
+        $this->_gedcom = $gedcom;
+
+        return $this;
+    }
+
+    /**
      * Parses a GEDCOM file.
      *
      * Opens and reads a GEDCOM file, parsing its contents and populating the Gedcom object.
@@ -389,6 +461,9 @@ class Parser implements ParserInterface
 
             $this->forward();
         }
+
+        $this->detectSpecificFileFormat()
+            ->setFirstCard();
 
         return $this->getGedcom();
     }
