@@ -97,6 +97,7 @@ class Gedcom
      */
     protected \Gedcom\Record\Indi|null $mainIndi = null;
 
+    protected \Gedcom\Enums\SpeceficFormats|null $specificFormat = null;
     /**
      * Retrieves the header record of the GEDCOM file.
      */
@@ -261,7 +262,7 @@ class Gedcom
     {
         return $this->obje;
     }
-    
+
     /**
      * Set main indi
      *
@@ -294,5 +295,21 @@ class Gedcom
     public function isHasMainIndi(): bool
     {
         return $this->mainIndi !== null;
+    }
+
+    /**
+     * getSpecificFormat
+     *
+     * @return Gedcom\Enums\SpeceficFormats
+     */
+    public function getSpecificFormat(): \Gedcom\Enums\SpeceficFormats
+    {
+        return $this->specificFormat;
+    }
+
+    public function setSpecificFormat(\Gedcom\Enums\SpeceficFormats $format): self {
+        $this->specificFormat = $format;
+
+        return $this;
     }
 }
