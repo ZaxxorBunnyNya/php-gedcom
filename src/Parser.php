@@ -320,8 +320,10 @@ class Parser implements ParserInterface
      */
     public function getFormatTypeBySourceName(string $sourceName): \Gedcom\Enums\SpeceficFormats
     {
-        if($sourceName === "FamyTale"){
+        if ($sourceName === "FamyTale") {
             return \Gedcom\Enums\SpeceficFormats::Famytale;
+        } else if($sourceName === "Famiry") {
+            return \Gedcom\Enums\SpeceficFormats::Famiry;
         }
 
         return \Gedcom\Enums\SpeceficFormats::Unkown;
@@ -342,7 +344,8 @@ class Parser implements ParserInterface
             return $this;
         }
 
-        if ($format === \Gedcom\Enums\SpeceficFormats::Famytale) {
+        if ($format === \Gedcom\Enums\SpeceficFormats::Famytale ||
+            $format === \Gedcom\Enums\SpeceficFormats::Famiry) {
             $indi = $gedcom->getIndi();
 
             $gedcom->setMainIndi($indi[array_key_first($indi)]);
